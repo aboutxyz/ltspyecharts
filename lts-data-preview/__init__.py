@@ -13,19 +13,13 @@ error_msg = u'请输入船名航次'
 def index():
     return render_template('index.html')
 	
-@app.route('/require/', methods=["GET","POST"])
-def revoyage():
-    if request.method != "POST":
-        return render_template('voyage.html',data = error_msg)
-    else:
-        vesselname = request.form['vesselname']
-        data={'vesselname':vesselname}
-        r = requests.get('http://127.0.0.1:7777/vessel',params = data)
-        data = json.loads(r.text)
-        return render_template('voyage.html',vesselname=vesselname,data=data)
+@app.route('/statics/<vname>', methods=["GET","POST"])
+def revoyage(vname):
+    if vname=="m-v":
+        return render_template("statics/m-v.html")
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 		
 
 
